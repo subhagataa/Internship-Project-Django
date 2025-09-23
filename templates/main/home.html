@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Survey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            border: none;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+        .rating-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        .response-item {
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+        .section-title {
+            color: #495057;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-gradient">Customer Feedback Survey</h1>
+            <p class="lead text-muted">Help us improve our services by sharing your experience</p>
+        </div>
+
+        <div class="row">
+            <!-- Main Form Column -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Share Your Experience</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            
+                            <!-- Personal Information Section -->
+                            <div class="mb-4">
+                                <h4 class="section-title"><i class="fas fa-user me-2"></i>Personal Information</h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Full Name *</label>
+                                        {{ form.name }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Email Address *</label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label fw-bold">Age</label>
+                                        {{ form.age }}
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label fw-bold">Gender</label>
+                                        {{ form.gender }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Country</label>
+                                        {{ form.country }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Usage Information -->
+                            <div class="mb-4">
+                                <h4 class="section-title"><i class="fas fa-chart-bar me-2"></i>Usage Information</h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">How often do you use our service?</label>
+                                        {{ form.product_usage }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ratings Section -->
+                            <div class="mb-4">
+                                <h4 class="section-title"><i class="fas fa-star me-2"></i>Rate Your Experience</h4>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Overall Satisfaction</label>
+                                        {{ form.satisfaction_score }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Likelihood to Recommend</label>
+                                        {{ form.would_recommend }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Quality Rating</label>
+                                        {{ form.quality_rating }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Price Rating</label>
+                                        {{ form.price_rating }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Support Rating</label>
+                                        {{ form.support_rating }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feedback Section -->
+                            <div class="mb-4">
+                                <h4 class="section-title"><i class="fas fa-comments me-2"></i>Your Feedback</h4>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">What's your favorite feature?</label>
+                                    {{ form.favorite_feature }}
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Suggestions for improvement</label>
+                                    {{ form.improvement_suggestions }}
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Additional comments</label>
+                                    {{ form.feedback }}
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Your Feedback
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Success Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>{{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Sidebar Column -->
+            <div class="col-lg-4">
+                <!-- Recent Responses Card -->
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Feedback</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for response in responses %}
+                            <div class="response-item">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <strong>{{ response.name }}</strong>
+                                    <span class="rating-badge">{{ response.satisfaction_score }}/5</span>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>{{ response.created_at|timesince }} ago
+                                </small>
+                                {% if response.favorite_feature %}
+                                    <div class="mt-1">
+                                        <small><strong>Likes:</strong> {{ response.favorite_feature|truncatewords:5 }}</small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <div class="text-center text-muted py-3">
+                                <i class="fas fa-inbox fa-2x mb-2"></i>
+                                <p>No feedback yet. Be the first to share!</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Stats Card -->
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Quick Stats</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h4 class="text-primary">{{ total_responses }}</h4>
+                            <p class="text-muted">Total Responses</p>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <div class="text-center">
+                                <h6 class="text-success">{{ avg_satisfaction|floatformat:1 }}/5</h6>
+                                <small>Avg Satisfaction</small>
+                            </div>
+                            <div class="text-center">
+                                <h6 class="text-info">{{ avg_recommend|floatformat:1 }}/5</h6>
+                                <small>Avg Recommendation</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Card -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="{% url 'analytics' %}" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-analytics me-2"></i>View Analytics Dashboard
+                        </a>
+                        <small class="text-muted">See detailed charts and insights</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>
