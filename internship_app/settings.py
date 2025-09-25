@@ -23,7 +23,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', os.getenv('SECRET_KEY', 'django-insecu
 
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com', '.railway.app', '.ngrok.io', '*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-95f1b.up.railway.app",
+    # add other trusted domains if needed
+]
+
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com', '.railway.app', '.ngrok.io', 'web-production-95f1b.up.railway.app','*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
