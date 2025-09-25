@@ -69,6 +69,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'internship_app.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.loca.lt',
+    'https://*.onrender.com',
+]
+
 # ==========================
 # Database configuration
 # ==========================
@@ -83,8 +88,7 @@ DATABASES = {
 # Force IPv4 connection (psycopg2)
 DATABASES['default']['OPTIONS'] = {
     'sslmode': 'require',
-    'target_session_attrs': 'read-write',
-    'hostaddr': '34.76.41.143'  # IPv4 address of db.yprzeeyjdsavbyhmpujb.supabase.co
+    'target_session_attrs': 'read-write'
 }
 # ==========================
 # Password validation
