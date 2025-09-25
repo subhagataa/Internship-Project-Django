@@ -40,6 +40,64 @@ This is a **full-stack web application** built using **Django** (backend + front
    git clone https://github.com/yourusername/internship-survey-app
    cd internship-project
 
+2. *Create a virtual environment*
 
+   bash
+   python -m venv venv
+   source venv/bin/activate   # Linux/macOS
+   venv\Scripts\activate      # Windows
+   
 
+3. *Install dependencies*
 
+   bash
+   pip install -r requirements.txt
+   
+
+4. *Environment variables*
+
+   * Create a .env file in the project root:
+
+     
+     DATABASE_URL=your_supabase_database_url
+     DJANGO_SECRET_KEY=your_secret_key
+     DJANGO_DEBUG=True
+     
+
+5. *Run migrations*
+
+   bash
+   python manage.py migrate
+   
+
+6. *Run the development server*
+
+   bash
+   python manage.py runserver
+   
+
+7. *Access the application*
+   Open your browser at http://127.0.0.1:8000/
+
+---
+
+## Deployment
+
+The project is *deployed on Railway*:
+[https://web-production-95f1b.up.railway.app/](https://web-production-95f1b.up.railway.app/)
+
+---
+
+## Screenshots
+
+![alt text](img1.png)
+![alt text](img2.png) 
+![alt text](img3.png) 
+![alt text](img4.png) 
+![alt text](img5.png)
+
+---
+
+## Author
+
+*Subhagata Sardar*
