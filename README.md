@@ -41,5 +41,5 @@ This is a **full-stack web application** built using **Django** (backend + front
    cd internship-project
 
 
-## Author
-**Subhagata Sardar**
+
+
