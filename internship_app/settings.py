@@ -80,6 +80,12 @@ DATABASES = {
     )
 }
 
+# Force IPv4 connection (psycopg2)
+DATABASES['default']['OPTIONS'] = {
+    'sslmode': 'require',
+    'target_session_attrs': 'read-write',
+    'hostaddr': '34.76.41.143'  # IPv4 address of db.yprzeeyjdsavbyhmpujb.supabase.co
+}
 # ==========================
 # Password validation
 # ==========================
