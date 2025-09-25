@@ -69,30 +69,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'internship_app.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.loca.lt',
-    'https://*.onrender.com',
-]
-
-# ==========================
 # Database configuration
-# ==========================
-DATABASES = {
-    'default': dj_database_url.config(
-        default="postgresql://postgres:subhaOrg13186@db.yprzeeyjdsavbyhmpujb.supabase.co:5432/postgres",
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+if os.environ.get('DATABASE_URL'):
+    # Production - Use DATABASE_URL from environment
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    # Development - Use your Supabase connection
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('SUPABASE_DB_NAME', 'postgres'),
+            'USER': os.getenv('SUPABASE_DB_USER', 'postgres.yprzeeyjdsavbyhmpujb'),
+            'PASSWORD': os.getenv('SUPABASE_DB_PASSWORD', 'subhaOrg@13186'),
+            'HOST': os.getenv('SUPABASE_DB_HOST', 'aws-1-ap-south-1.pooler.supabase.com'),
+            'PORT': os.getenv('SUPABASE_DB_PORT', '6543'),
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
+        }
+    }
 
-# Force IPv4 connection (psycopg2)
-DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
-    'target_session_attrs': 'read-write'
-}
-# ==========================
-# Password validation
-# ==========================
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -108,17 +110,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ==========================
-# Internationalization
-# ==========================
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ==========================
-# Static files
-# ==========================
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -126,9 +122,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Whitenoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ==========================
 # Security settings for production
-# ==========================
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
